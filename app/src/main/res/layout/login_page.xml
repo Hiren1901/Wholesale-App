@@ -1,0 +1,112 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent" android:layout_height="match_parent" >
+	<!--
+	/*
+	 *	This content is generated from the API File Info.
+	 *	(Alt+Shift+Ctrl+I).
+	 *
+	 *	@desc
+	 *	@file 		login_page
+	 *	@date 		Saturday 11th of March 2023 03:34:29 PM
+	 *	@title 		Page 1
+	 *	@author
+	 *	@keywords
+	 *	@generator 	Export Kit v1.3.figma
+	 *
+	 */
+	-->
+
+
+	<View
+		android:id="@+id/rectangle_1"
+		android:layout_width="match_parent"
+		android:layout_height="417dp"
+		android:layout_marginTop="0dp"
+		android:background="@drawable/rectangle_1_shape"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.545"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<TextView
+		android:id="@+id/wholesalewale"
+		android:layout_width="218dp"
+		android:layout_height="72dp"
+
+		android:layout_marginTop="12dp"
+		android:fontFamily="@font/aclonica"
+		android:gravity="center_horizontal|center_vertical"
+		android:text="@string/wholesalewale_string"
+		android:textColor="@color/_bg__login_page_ek2_color"
+		android:textSize="20sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/welcome" />
+
+	<Button
+		android:id="@+id/shop"
+		android:layout_width="220dp"
+		android:layout_height="48dp"
+		android:layout_marginTop="48dp"
+		android:background="@drawable/rectangle_3_shape"
+		android:clickable="true"
+
+
+		android:stateListAnimator="@animator/fab_raise"
+		android:text="Create Your Shop"
+		app:layout_constraintEnd_toEndOf="@+id/rectangle_1"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="@+id/wholesalewale"
+		app:layout_constraintTop_toBottomOf="@+id/wholesalewale" />
+
+	<Button
+		android:id="@+id/user"
+		android:layout_width="220dp"
+		android:layout_height="47dp"
+		android:layout_alignParentStart="true"
+		android:layout_alignParentEnd="true"
+		android:layout_marginTop="20dp"
+		android:background="@drawable/rectangle_2_shape"
+		android:clickable="true"
+		android:stateListAnimator="@animator/fab_raise"
+
+		android:text="Sign In As Customer"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.0"
+		app:layout_constraintStart_toStartOf="@+id/shop"
+		app:layout_constraintTop_toBottomOf="@+id/shop" />
+
+	<TextView
+		android:id="@+id/welcome"
+		android:layout_width="93dp"
+		android:layout_height="41dp"
+		android:layout_gravity="center_horizontal|center"
+
+		android:layout_marginTop="60dp"
+		android:fontFamily="@font/almendra_bold"
+		android:gravity="center"
+		android:text="@string/welcome_string"
+		android:textColor="@color/_bg__login_page_ek2_color"
+		android:textSize="14sp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.136"
+		app:layout_constraintStart_toStartOf="@+id/rectangle_1"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<ImageView
+		android:id="@+id/imageView"
+		android:layout_width="match_parent"
+		android:layout_height="298dp"
+		android:layout_marginTop="10dp"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/rectangle_1"
+		app:srcCompat="@drawable/one" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+

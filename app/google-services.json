@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "944181109375",
+    "project_id": "wholesalewale-a02b9",
+    "storage_bucket": "wholesalewale-a02b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944181109375:android:3c2d512d8ea239a1ae954a",
+        "android_client_info": {
+          "package_name": "com.example.wholesalewale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944181109375-5mn3oecj4f4mdp9boeok4jls11eqlc14.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wholesalewale",
+            "certificate_hash": "e0d8a867d0becbcc8e922f211782c7e4f08dff96"
+          }
+        },
+        {
+          "client_id": "944181109375-904rk5rif7dghikp2fhngeon8mvcoeqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5TY6CYItLAs9NzxtGC_yt4T5ErpHIUsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944181109375-904rk5rif7dghikp2fhngeon8mvcoeqs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
