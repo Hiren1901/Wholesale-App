@@ -9,18 +9,18 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".firebasePersitence"
+        android:name="com.example.wholesalewale.firebasePersitence"
         android:allowBackup="true"
         android:theme="@style/Theme.WholeSaleWale">
         <activity
-            android:name=".CustomerDashboard"
+            android:name="com.example.wholesalewale.CustomerDashboard"
             android:exported="false" />
         <activity
-            android:name=".SignIn"
+            android:name="com.example.wholesalewale.SignIn"
             android:exported="false"
             android:noHistory="true" />
         <activity
-            android:name=".Dashboard"
+            android:name="com.example.wholesalewale.Dashboard"
             android:exported="true"
             android:noHistory="false">
             <intent-filter>
@@ -30,11 +30,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ownerDetails"
+            android:name="com.example.wholesalewale.ownerDetails"
             android:exported="false"
             android:noHistory="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.wholesalewale.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:noHistory="true" />

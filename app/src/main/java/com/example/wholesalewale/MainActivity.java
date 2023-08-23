@@ -13,6 +13,7 @@ import exportkit.figma.R;
 public class MainActivity extends AppCompatActivity {
 Button CreateShop;
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -42,6 +43,14 @@ Button CreateShop;
 //                }
 //            }
 //        };
+       User.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,CustomerDashboard.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         CreateShop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

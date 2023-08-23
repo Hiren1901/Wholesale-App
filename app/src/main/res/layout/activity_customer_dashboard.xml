@@ -23,56 +23,120 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" >
-        <androidx.constraintlayout.widget.ConstraintLayout android:layout_height="match_parent"
-            android:layout_width="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageButton
-                android:id="@+id/imageButton2"
-                android:layout_width="94dp"
-                android:layout_height="54dp"
-                android:backgroundTint="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton3"
-                app:layout_constraintHorizontal_bias="0.675"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageButton3"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/baseline_home_24" />
-
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="93dp"
-                android:layout_height="51dp"
+                android:id="@+id/orderList"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
                 android:backgroundTint="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/liked"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.583"
-                app:srcCompat="@drawable/baseline_shopping_cart_24"
-                tools:layout_editor_absoluteX="112dp" />
+                app:layout_constraintVertical_bias="0.129"
+                app:srcCompat="@drawable/baseline_list_24" />
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cart"
+                android:textColor="#0C0C0C"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/cart"
+                app:layout_constraintStart_toStartOf="@+id/cart"
+                app:layout_constraintTop_toBottomOf="@+id/cart" />
 
             <ImageButton
-                android:id="@+id/imageButton4"
-                android:layout_width="89dp"
-                android:layout_height="51dp"
+                android:id="@+id/homego"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
                 android:backgroundTint="#FFFFFF"
-                app:layout_constraintBottom_toBottomOf="@+id/imageButton3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.515"
-                app:layout_constraintStart_toEndOf="@+id/imageButton3"
-                app:layout_constraintTop_toTopOf="@+id/imageButton3"
-                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cart"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.161"
+                app:srcCompat="@drawable/baseline_home_24" />
+
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Home"
+                android:textColor="#191818"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/homego"
+                app:layout_constraintStart_toStartOf="@+id/homego"
+                app:layout_constraintTop_toBottomOf="@+id/homego" />
+
+            <ImageButton
+                android:id="@+id/cart"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="60dp"
+                android:backgroundTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/liked"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/homego"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.161"
+                app:srcCompat="@drawable/baseline_shopping_cart_24" />
+
+            <ImageButton
+                android:id="@+id/liked"
+                android:layout_width="60dp"
+                android:layout_height="30dp"
+                android:backgroundTint="#FFFFFF"
+                android:contentDescription="Liked"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/orderList"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cart"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.129"
                 app:srcCompat="@drawable/heart" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Liked"
+                android:textColor="#100F0F"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/liked"
+                app:layout_constraintStart_toStartOf="@+id/liked"
+                app:layout_constraintTop_toBottomOf="@+id/liked" />
+
+            <TextView
+                android:id="@+id/textView34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" orders"
+                android:textColor="#151515"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/orderList"
+                app:layout_constraintStart_toStartOf="@+id/orderList"
+                app:layout_constraintTop_toBottomOf="@+id/orderList" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+        <LinearLayout
+            android:id="@+id/home"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
