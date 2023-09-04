@@ -23,28 +23,32 @@ import android.widget.Toast;
 
 import exportkit.figma.R;
 
-public class Dashboard extends AppCompatActivity {
+
+public class Dashboard extends AppCompatActivity implements shop.onItemclick {
 
         ImageButton shop,add_item,check_orders,edit;
         ImageButton[] imageButtons;
+        String category,sname;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
         shop=findViewById(R.id.shop1);
         add_item=findViewById(R.id.addItem);
         check_orders=findViewById(R.id.delivery);
         edit=findViewById(R.id.editItem);
         imageButtons=new ImageButton[]{shop,add_item,check_orders,edit};
         setButtonAttributes(shop);
-        replaceFragment(new shop(),R.anim.fadein, R.anim.fadeout);
+
+        replaceFragment(new shop(Dashboard.this),R.anim.fadein, R.anim.fadeout);
         shop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setButtonAttributes(shop);
-                replaceFragment(new shop(), R.anim.fadein, R.anim.fadeout);
+                replaceFragment(new shop(Dashboard.this), R.anim.fadein, R.anim.fadeout);
             }
         });
         add_item.setOnClickListener(new View.OnClickListener() {
@@ -63,8 +67,9 @@ public class Dashboard extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 setButtonAttributes(edit);
-                replaceFragment(new Edititems(),R.anim.fadein, R.anim.fadeout);
+                replaceFragment(new Edititems(category,sname),R.anim.fadein, R.anim.fadeout);
             }
         });
 
@@ -108,5 +113,12 @@ public class Dashboard extends AppCompatActivity {
             }
         }
 
+    }
+
+
+    @Override
+    public void onClick(String category,String sname) {
+        this.category=category;
+        this.sname=sname;
     }
 }

@@ -35,6 +35,12 @@ import java.util.ArrayList;
 import exportkit.figma.R;
 
 public class Edititems  extends Fragment implements ItemAdapter.onItemclick {
+    String category;
+    String sname;
+    Edititems(String category,String sname){
+        this.category=category;
+        this.sname=sname;
+    }
     View view;
     boolean edited;
     Query query;
@@ -162,7 +168,7 @@ void query(Query query,String s){
                         @Override
                         public boolean onQueryTextChange(String s) {
                             cardView.setVisibility(View.GONE);
-                            query=firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products");
+                            query=firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products");
                                 query(query,s);
 
                             return true;
@@ -212,14 +218,14 @@ void query(Query query,String s){
                         cardView.setVisibility(View.GONE);
                         button.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.GONE);
-                        firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+s).removeValue();
-                        firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+pname.getText().toString()).setValue(uploadtem);
-                        firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+pname.getText().toString()+"/productname").setValue(pname.getText().toString());
-                        firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+pname.getText().toString()+"/about").setValue(about.getText().toString());
-                        firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+pname.getText().toString()+"/color").setValue(Integer.valueOf(color.getText().toString()));
-                        firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+pname.getText().toString()+"/price").setValue(Double.parseDouble(price.getText().toString()));
-                        firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+pname.getText().toString()+"/quantity").setValue(Integer.parseInt(quantity.getText().toString()));
-                        firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+pname.getText().toString()+"/material").setValue(material.getText().toString());
+                        firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+s).removeValue();
+                        firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+pname.getText().toString()).setValue(uploadtem);
+                        firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+pname.getText().toString()+"/productname").setValue(pname.getText().toString());
+                        firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+pname.getText().toString()+"/about").setValue(about.getText().toString());
+                        firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+pname.getText().toString()+"/color").setValue(Integer.valueOf(color.getText().toString()));
+                        firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+pname.getText().toString()+"/price").setValue(Double.parseDouble(price.getText().toString()));
+                        firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+pname.getText().toString()+"/quantity").setValue(Integer.parseInt(quantity.getText().toString()));
+                        firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+pname.getText().toString()+"/material").setValue(material.getText().toString());
                         searchView.setQuery(pname.getText().toString(), false);
                         query(query,pname.getText().toString());
                     }
@@ -232,7 +238,7 @@ void query(Query query,String s){
         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                firebaseDatabase.getReference().child("Shops/"+user.getUid()+"/Products/"+s).removeValue();
+                firebaseDatabase.getReference().child("Shops/"+category+"/"+user.getUid()+"-("+sname+")"+"/Products/"+s).removeValue();
                 Toast.makeText(myContext, "Item Deleted", Toast.LENGTH_SHORT).show();
                 query(query,"");
                 list.clear();

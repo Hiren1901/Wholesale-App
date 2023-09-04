@@ -88,7 +88,12 @@ public class CustomerDashboard extends AppCompatActivity {
                 imageButtons[i].setEnabled(true);
             }else{
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    imageButtons[i].setColorFilter(getColor(R.color.accent_blue2));
+                    if(i==2){
+
+                    imageButtons[i].setColorFilter(getColor(R.color.red));
+                    }else{
+                        imageButtons[i].setColorFilter(getColor(R.color.black));
+                    }
                 }
             }
         }

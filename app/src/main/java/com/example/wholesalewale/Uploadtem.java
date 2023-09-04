@@ -91,6 +91,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import exportkit.figma.R;
+import okhttp3.internal.cache.DiskLruCache;
 import pl.droidsonroids.gif.GifImageView;
 
 public class Uploadtem extends Fragment {
@@ -481,7 +482,7 @@ boolean h=false;
                             String mat = material.getText().toString();
                             String abt = aboutProduct.getText().toString();
                             String pName = producName.getText().toString();
-
+                                uploaded=false;
                             final boolean[] h = {false};
 
 
@@ -490,39 +491,49 @@ boolean h=false;
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         if (!uploaded) {
-                                        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                                            if (snapshot1.getKey().contains(user.getUid())) {
-                                                uploaded = true;
-                                                uploadDetail = new uploadDetails(pName, Integer.parseInt(q), Double.parseDouble(p), Integer.parseInt(c), mat, abt, null);
-                                                databaseReference.child(snapshot1.getKey()).child("Products").child(pName).setValue(uploadDetail);
                                                 Toast.makeText(getContext(), "Wait till upload", Toast.LENGTH_LONG).show();
-                                                int i = 1;
-                                                if(!arrayList.isEmpty()){
-                                                for (Uri u : arrayList) {
-                                                    int finalI = i;
-                                                    storageReference.child(snapshot1.getKey()).child(pName).child("Image_" + i).putFile(u).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                        @Override
-                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            for (DataSnapshot snap : snapshot.getChildren()){
+                                            for (DataSnapshot snapshot1 : snap.getChildren()) {
+                                                if (snapshot1.getKey().contains(user.getUid())) {
 
-                                                            Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                                                            while (!urlTask.isSuccessful()) ;
-                                                            Uri downloadUrl = urlTask.getResult();
-                                                            uploaded = true;
-                                                            databaseReference.child(snapshot1.getKey()).child("Products").child(pName).child("links").child(String.valueOf(finalI)).setValue(downloadUrl.toString());
+                                                    uploaded = true;
+                                                    uploadDetail = new uploadDetails(pName, Integer.parseInt(q), Double.parseDouble(p), Integer.parseInt(c), mat, abt, null);
+                                                    databaseReference.child(snap.getKey()).child(snapshot1.getKey()).child("Products").child(pName).setValue(uploadDetail);
+
+                                                    int i = 1;
+                                                    if (!arrayList.isEmpty()) {
+                                                        for (Uri u : arrayList) {
+                                                            int finalI = i;
+                                                            storageReference.child(user.getUid()).child(pName).child("Image_" + i).putFile(u).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                                @Override
+                                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                                                                    Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                                                                    while (!urlTask.isSuccessful())
+                                                                        ;
+                                                                    Uri downloadUrl = urlTask.getResult();
+                                                                    uploaded = true;
+                                                                    databaseReference.child(snap.getKey()).child(snapshot1.getKey()).child("Products").child(pName).child("links").child(String.valueOf(finalI)).setValue(downloadUrl.toString());
+                                                                }
+                                                            });
+
+
+                                                            if (i == arrayList.size() - 1) {
+                                                                Toast.makeText(getActivity(), "your items have been  uploaded successfully", Toast.LENGTH_SHORT).show();
+                                                            }
+                                                            i++;
                                                         }
-                                                    });
 
-
-                                                if(i==arrayList.size()-1){
-                                                    Toast.makeText(getActivity(), "your items have been  uploaded successfully", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                    h[0] = true;
+                                                    break;
                                                 }
-                                                    i++;
-                                                }
+                                                if(h[0])
+                                                    break;
 
                                             }
-                                                h[0] = true;
+                                            if(h[0])
                                                 break;
-                                            }
                                         }
                                     }
 

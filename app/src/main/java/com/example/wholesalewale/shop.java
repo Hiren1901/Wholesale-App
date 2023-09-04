@@ -62,6 +62,15 @@ import java.util.Date;
 import exportkit.figma.R;
 
 public class shop extends Fragment implements ItemAdapter.onItemclick{
+    onItemclick click;
+    public interface onItemclick{
+        void onClick(String category,String sname);
+    }
+    shop(onItemclick itemclick){
+        click=itemclick;
+    }
+
+
         CollapsingToolbarLayout collapsingToolbarLayout;
         boolean founduser=false;
     Query query;
@@ -105,6 +114,7 @@ public class shop extends Fragment implements ItemAdapter.onItemclick{
         CardView cardView;
     FirebaseAuth.AuthStateListener mAuthStateListener;
         Context myContext;
+
     public static String currentDate(){
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         // get current date time with Date()
@@ -235,7 +245,7 @@ public class shop extends Fragment implements ItemAdapter.onItemclick{
                 switch (menuItem.getItemId()) {
                     case R.id.logout:
                         Toast.makeText(getActivity(), "You are logout", Toast.LENGTH_SHORT).show();
-                        FirebaseAuth.getInstance().signOut();
+                       FirebaseAuth.getInstance().signOut();
                         founduser = false;
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
@@ -258,46 +268,56 @@ public class shop extends Fragment implements ItemAdapter.onItemclick{
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                     FirebaseUser user = firebaseAuth.getCurrentUser();
+                    String d=user.getDisplayName();
                     if (user != null) {
 
-                        Query query = firebaseDatabase.getReference().child("Shops/" + user.getUid());
+                        founduser = true;
+                        Query query = firebaseDatabase.getReference().child("Shops/");
                         FirebaseDatabase.getInstance().goOnline();
+
 
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot s:snapshot.getChildren()){
 
-                                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-                                    founduser = true;
-                                    if (snapshot1.getKey().equals("owner details")) {
-                                        owner = snapshot1.getValue(owners.class);
-                                        ownerName.setText(owner.getName().toString());
-                                    }
-                                    if (snapshot1.getKey().equals("shop details")) {
-                                        shopdetail = snapshot1.getValue(shopdetails.class);
-                                        Address.setText(shopdetail.getAddress());
-                                        Category.setText(shopdetail.getCategory());
-                                        collapsingToolbarLayout.setTitle(shopdetail.getShopname());
-                                        shopName.setText(shopdetail.getShopname());
-                                        shopname[0] = shopdetail.getShopname();
-                                        contact.setText(shopdetail.getMob());
-                                    }
-                                    if (snapshot1.getKey().equals("Products")) {
-                                        for (DataSnapshot snapshot3 : snapshot1.getChildren()) {
-                                             uploadDetail = snapshot3.getValue(uploadDetails.class);
-                                            k.add(uploadDetail);
+                                for (DataSnapshot snapshot1 : s.getChildren()) {
+                                    if (snapshot1.getKey().contains(user.getUid())) {
+                                        for (DataSnapshot d : snapshot1.getChildren()) {
+                                            founduser = true;
+                                            if (d.getKey().equals("owner details")) {
+                                                owner = d.getValue(owners.class);
+                                                ownerName.setText(owner.getName().toString());
+                                            }
+                                            if (d.getKey().equals("shop details")) {
+                                                shopdetail = d.getValue(shopdetails.class);
+                                                Address.setText(shopdetail.getAddress());
+                                                Category.setText(shopdetail.getCategory());
+                                                collapsingToolbarLayout.setTitle(shopdetail.getShopname());
+                                                shopName.setText(shopdetail.getShopname());
+                                                shopname[0] = shopdetail.getShopname();
+                                                contact.setText(shopdetail.getMob());
+                                                click.onClick(shopdetail.getCategory(),shopdetail.getShopname());
+
+                                            }
+                                            if (d.getKey().equals("Products")) {
+                                                for (DataSnapshot snapshot3 : d.getChildren()) {
+                                                    uploadDetail = snapshot3.getValue(uploadDetails.class);
+                                                    k.add(uploadDetail);
 
 
+                                                }
 
+                                            }
                                         }
 
+
+                                        // recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.HORIZONTAL));
+
                                     }
-
-
-                                    // recyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.HORIZONTAL));
-
-
                                 }
+                            }
+
 
                                 mFrameLayout.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
@@ -321,6 +341,7 @@ public class shop extends Fragment implements ItemAdapter.onItemclick{
                         // Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_SHORT).show();
 
                     } else {
+                      FirebaseAuth.getInstance().signOut();
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }

@@ -22,11 +22,18 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.ViewHo
 Context context;
 ImageView imageView;
 TextView textView;
+private  onItemclick click;
 ArrayList<categoryItems> arrayList;
 categoryAdapter(Context context, ArrayList<categoryItems> arrayList){
     this.context=context;
     this.arrayList=arrayList;
 }
+    public interface onItemclick{
+        void onClick(int position);
+    }
+    public void onclick(onItemclick click){
+        this.click=click;
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
 
@@ -58,6 +65,12 @@ categoryAdapter(Context context, ArrayList<categoryItems> arrayList){
     holder.CImage.setImageResource(arrayList.get(position).getDrawable());
     holder.textView.setSelected(true);
     holder.textView.setText(arrayList.get(position).getName());
+    holder.CImage.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            click.onClick(position);
+        }
+    });
 
     }
 

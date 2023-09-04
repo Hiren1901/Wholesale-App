@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/name"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.wholesalewale.customerDetails">
+
+    <ImageView
+        android:id="@+id/customerface"
+        android:layout_width="138dp"
+        android:layout_height="141dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/user"
+        android:cropToPadding="true"
+        android:elevation="10dp"
+        android:focusableInTouchMode="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="144dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:paddingStart="18dp"
+        android:text="Add Profile Photo"
+        app:layout_constraintEnd_toEndOf="@+id/customerface"
+        app:layout_constraintStart_toStartOf="@+id/customerface"
+        app:layout_constraintTop_toBottomOf="@+id/customerface" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addpic2"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="-35dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        app:backgroundTint="#5F80B3"
+        app:elevation="20dp"
+        app:fabSize="mini"
+        app:layout_constraintEnd_toEndOf="@+id/customerface"
+        app:layout_constraintTop_toBottomOf="@+id/customerface"
+        app:srcCompat="@drawable/ic_baseline_add_a_photo_24" />
+
+    <TextView
+        android:id="@+id/textView38"
+        android:layout_width="149dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="353dp"
+        android:fontFamily="@font/akaya_telivigala"
+        android:paddingStart="20dp"
+        android:text="Sign In"
+        android:textColor="#0B0A0A"
+        android:textSize="35sp"
+        app:layout_constraintBottom_toTopOf="@+id/customerface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/cName"
+        android:layout_width="339dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="64dp"
+        android:ems="10"
+        android:hint="Enter Your Name"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView35" />
+
+    <EditText
+        android:id="@+id/Cphone"
+        android:layout_width="339dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="Enter Mobile Number"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/cName"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cName"
+        app:layout_constraintTop_toBottomOf="@+id/cName" />
+
+    <EditText
+        android:id="@+id/cAddress"
+        android:layout_width="339dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:hint="Enter Delivery address"
+        android:inputType="textPostalAddress"
+        app:layout_constraintEnd_toEndOf="@+id/Cphone"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/Cphone"
+        app:layout_constraintTop_toBottomOf="@+id/Cphone" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="112dp"
+        android:layout_marginBottom="55dp"
+        android:background="#5F7FB2"
+        android:text="save"
+        android:textColor="#100F0F"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/cAddress"
+        app:layout_constraintTop_toBottomOf="@+id/cAddress"
+        app:layout_constraintVertical_bias="0.756" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

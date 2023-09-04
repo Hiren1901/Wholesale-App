@@ -57,8 +57,8 @@ static  uploadDetails uploaddetail;
             shopname.setText(name);
             photo_.setImageResource(R.drawable.polar_bear);
             if(context!=null){
-
-            storeic.setColorFilter(ContextCompat.getColor(context,
+            storeic.setColorFilter(
+                    ContextCompat.getColor(context,
                     R.color.light_grey), android.graphics.PorterDuff.Mode.SRC_IN);
             }
 
@@ -115,7 +115,6 @@ public ItemAdapter(Context context, ArrayList<uploadDetails> k, String shopname)
             @Override
             public void onClick(View view) {
                 click.onClick(position);
-
             }
         });
 

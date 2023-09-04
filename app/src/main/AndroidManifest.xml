@@ -13,8 +13,23 @@
         android:allowBackup="true"
         android:theme="@style/Theme.WholeSaleWale">
         <activity
-            android:name="com.example.wholesalewale.CustomerDashboard"
+            android:name="com.example.wholesalewale.Splash_screen"
+            android:exported="true"
+           android:noHistory="true"
+           >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.wholesalewale.customerDetails"
             android:exported="false" />
+        <activity
+            android:name="com.example.wholesalewale.CustomerDashboard"
+            android:exported="false"
+          />
         <activity
             android:name="com.example.wholesalewale.SignIn"
             android:exported="false"
@@ -22,12 +37,9 @@
         <activity
             android:name="com.example.wholesalewale.Dashboard"
             android:exported="true"
-            android:noHistory="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:noHistory="false"
+           >
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.example.wholesalewale.ownerDetails"

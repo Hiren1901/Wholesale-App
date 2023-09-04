@@ -46,7 +46,8 @@ Button CreateShop;
        User.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,CustomerDashboard.class);
+                Intent intent=new Intent(MainActivity.this,SignIn.class);
+                intent.putExtra("customer","land on customer's page");
                 startActivity(intent);
                 finish();
             }

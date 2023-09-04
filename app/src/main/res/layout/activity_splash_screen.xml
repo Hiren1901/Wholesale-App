@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#339E6E49"
+    tools:context="com.example.wholesalewale.Splash_screen">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gifImageView"
+        android:layout_width="458dp"
+        android:layout_height="401dp"
+        android:layout_marginTop="148dp"
+        android:background="@drawable/t"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/whole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="72dp"
+        android:fontFamily="@font/akaya_telivigala"
+        android:rotation="-8"
+        android:rotationX="8"
+        android:rotationY="8"
+        android:text="Whole"
+        android:textColor="#513830"
+        android:textSize="40sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/akaya_telivigala"
+        android:text="Sale"
+        android:textColor="#130F0F"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/whole"
+        app:layout_constraintStart_toEndOf="@+id/whole"
+        app:layout_constraintTop_toTopOf="@+id/whole" />
+
+    <TextView
+        android:id="@+id/wale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/akaya_telivigala"
+        android:rotation="-8"
+        android:text="Wale"
+        android:textColor="#673815"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/sale"
+        app:layout_constraintStart_toEndOf="@+id/sale"
+        app:layout_constraintTop_toTopOf="@+id/sale" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

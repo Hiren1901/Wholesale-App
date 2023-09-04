@@ -135,6 +135,7 @@ public class ownerDetails extends AppCompatActivity {
 // Apply the adapter to the spinner
         category.setAdapter(arrayAdapter);
         category.setThreshold(0);
+
         category.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -213,6 +214,10 @@ public class ownerDetails extends AppCompatActivity {
                                 owner=new owners(Editname.getText().toString(),Editmobile.getText().toString(),address.getText().toString());
                                 category.setVisibility(View.VISIBLE);
                                 textView.setVisibility(View.VISIBLE);
+                                if(TextUtils.isEmpty(category.getText().toString())){
+                                    category.setError("Please enter you address");
+                                    return;
+                                }
                                 Editname.setHint("");
                                 Editname.setText("");
                                 Editmobile.setText("");
@@ -228,10 +233,10 @@ public class ownerDetails extends AppCompatActivity {
                                 dot_2.setBackground(getDrawable(R.drawable.circle_1));
                             }else{
                                 shopdetails shopdetails=new shopdetails(Editname.getText().toString(),category.getText().toString(),address.getText().toString(),Editmobile.getText().toString());
-                                databaseReference.child(user.getUid()).child("owner details").setValue(owner);
-                                databaseReference.child(user.getUid()).child("shop details").setValue(shopdetails);
+                                databaseReference.child(category.getText().toString()).child(user.getUid()+"-("+Editname.getText().toString()+")").child("owner details").setValue(owner);
+                                databaseReference.child(category.getText().toString()).child(user.getUid()+"-("+Editname.getText().toString()+")").child("shop details").setValue(shopdetails);
                                 Intent intent = new Intent(ownerDetails.this, Dashboard.class);
-                                //intent.addFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                intent.putExtra("category_name",category.getText().toString());
                                 startActivity(intent);
 
                             }
