@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#339E6E49"
-    tools:context="com.example.wholesalewale.Splash_screen">
+   >
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gifImageView"
         android:layout_width="458dp"
         android:layout_height="401dp"
         android:layout_marginTop="148dp"
-        android:background="@drawable/t"
+        android:background="@drawable/splash_"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"

@@ -120,7 +120,7 @@ public class customerDetails extends AppCompatActivity {
                             return;
                         }
                         customerclass Customerclass=new customerclass(Cname.getText().toString(),caddress.getText().toString(), cno.getText().toString());
-                            databaseReference.child(user.getUid()+"("+Cname.getText().toString()+")").setValue(Customerclass);
+                            databaseReference.child(user.getUid()+"("+Cname.getText().toString().trim()+")").setValue(Customerclass);
                             storageReference.child(Cname.getText().toString()).putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

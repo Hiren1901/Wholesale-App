@@ -235,6 +235,7 @@ public class ownerDetails extends AppCompatActivity {
                                 shopdetails shopdetails=new shopdetails(Editname.getText().toString(),category.getText().toString(),address.getText().toString(),Editmobile.getText().toString());
                                 databaseReference.child(category.getText().toString()).child(user.getUid()+"-("+Editname.getText().toString()+")").child("owner details").setValue(owner);
                                 databaseReference.child(category.getText().toString()).child(user.getUid()+"-("+Editname.getText().toString()+")").child("shop details").setValue(shopdetails);
+                                Toast.makeText(ownerDetails.this, "yes", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(ownerDetails.this, Dashboard.class);
                                 intent.putExtra("category_name",category.getText().toString());
                                 startActivity(intent);

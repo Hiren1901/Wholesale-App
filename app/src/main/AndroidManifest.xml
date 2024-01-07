@@ -13,10 +13,14 @@
         android:allowBackup="true"
         android:theme="@style/Theme.WholeSaleWale">
         <activity
+            android:name="com.example.wholesalewale.completeproductview"
+            android:exported="false" />
+        <activity
+            android:name="com.example.wholesalewale.buyerVisitshop"
+            android:exported="false" />
+        <activity
             android:name="com.example.wholesalewale.Splash_screen"
-            android:exported="true"
-           android:noHistory="true"
-           >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,19 +32,14 @@
             android:exported="false" />
         <activity
             android:name="com.example.wholesalewale.CustomerDashboard"
-            android:exported="false"
-          />
+            android:exported="false" />
         <activity
             android:name="com.example.wholesalewale.SignIn"
             android:exported="false"
             android:noHistory="true" />
         <activity
             android:name="com.example.wholesalewale.Dashboard"
-            android:exported="true"
-            android:noHistory="false"
-           >
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name="com.example.wholesalewale.ownerDetails"
             android:exported="false"

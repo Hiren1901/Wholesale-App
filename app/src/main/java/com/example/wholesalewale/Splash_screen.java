@@ -29,6 +29,7 @@ public class Splash_screen extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     FirebaseAuth.AuthStateListener mAuthStateListener;
     FirebaseAuth firebaseAuth;
+    boolean chk=false;
 
     @Override
     protected void onResume() {
@@ -55,6 +56,7 @@ public class Splash_screen extends AppCompatActivity {
             Whole.setAnimation(frm_bottom);
             frm_bottom.start();
 
+
             firebaseAuth = FirebaseAuth.getInstance();
             firebaseDatabase = FirebaseDatabase.getInstance();
             mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -62,25 +64,36 @@ public class Splash_screen extends AppCompatActivity {
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                     FirebaseUser user = firebaseAuth.getCurrentUser();
+if(!chk) {
+    new Handler().postDelayed(new Runnable() {
+        @Override
+        public void run() {
+            chk=true;
+            if (user != null) {
+                if (user.getDisplayName() != null && user.getDisplayName().contains("user ")) {
+                    Intent intent = new Intent(Splash_screen.this, CustomerDashboard.class);
+                    startActivity(intent);
 
-                        int secondsDelayed = 7;
-                    new Handler().postDelayed(new Runnable() {
-                        public void run() {
-                            if (user != null) {
-                                if (user.getDisplayName().contains("user ")) {
-                                    Intent intent = new Intent(getApplication(), CustomerDashboard.class);
-                                    startActivity(intent);
-                                } else {
-                                    Intent intent = new Intent(getApplication(), Dashboard.class);
-                                    startActivity(intent);
-                                }
-                            } else {
-                                Intent intent = new Intent(getApplication(), MainActivity.class);
-                                startActivity(intent);
-                            }
+                } else if (user.getDisplayName() != null && user.getDisplayName().contains("owner ")) {
+                    Intent intent = new Intent(Splash_screen.this, Dashboard.class);
+                    startActivity(intent);
+                }
 
-                        }
-                    }, secondsDelayed * 1200);
+
+            } else if (user == null) {
+
+                Intent intent = new Intent(getApplication(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
+    }, 4500);
+}
+
+
+
+
+
 
 
                 }
@@ -89,13 +102,7 @@ public class Splash_screen extends AppCompatActivity {
 
 
     }
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString("message", "This is my message to be reloaded");
-        Toast.makeText(this,"dsd", Toast.LENGTH_LONG).show();
 
-    }
 
 
 }

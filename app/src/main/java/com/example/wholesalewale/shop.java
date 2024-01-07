@@ -66,6 +66,9 @@ public class shop extends Fragment implements ItemAdapter.onItemclick{
     public interface onItemclick{
         void onClick(String category,String sname);
     }
+    shop(){
+
+    }
     shop(onItemclick itemclick){
         click=itemclick;
     }
@@ -249,6 +252,7 @@ public class shop extends Fragment implements ItemAdapter.onItemclick{
                         founduser = false;
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
+
                         return true;
                     default:
                         return false;
@@ -268,7 +272,7 @@ public class shop extends Fragment implements ItemAdapter.onItemclick{
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
                     FirebaseUser user = firebaseAuth.getCurrentUser();
-                    String d=user.getDisplayName();
+
                     if (user != null) {
 
                         founduser = true;
@@ -341,9 +345,9 @@ public class shop extends Fragment implements ItemAdapter.onItemclick{
                         // Toast.makeText(getActivity(), "You are logged in", Toast.LENGTH_SHORT).show();
 
                     } else {
-                      FirebaseAuth.getInstance().signOut();
-                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                        startActivity(intent);
+
+//                        Intent intent = new Intent(getActivity(), MainActivity.class);
+//                        startActivity(intent);
                     }
                 }
             };

@@ -39,8 +39,7 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         Intent intent = getIntent();
          chk = intent.getStringExtra("customer");
-
-            textView = findViewById(R.id.textView13);
+         textView = findViewById(R.id.textView13);
         Name = findViewById(R.id.name);
         Password = findViewById(R.id.password);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -90,7 +89,6 @@ public class SignIn extends AppCompatActivity {
                                             user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
-                                                    finish();
                                                     onAuthSuccess();
 
                                                 }
@@ -112,7 +110,7 @@ public class SignIn extends AppCompatActivity {
                 });
             }
         });
-        if(chk!=null){
+        if(chk!=null && signin.getText().equals("signin")){
             signin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -135,9 +133,11 @@ public class SignIn extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                                     if (task.isSuccessful()) {
-                                        finish();
+
                                         startActivity(new Intent(SignIn.this, CustomerDashboard.class));
-                                        Toast.makeText(SignIn.this, "Successfully Signed In", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignIn.this, "Successfully Signed In to Customer's page", Toast.LENGTH_SHORT).show();
+                                        finish();
+
                                     } else {
                                         Toast.makeText(SignIn.this, "Could not login, password or email wrong , bullcraps", Toast.LENGTH_SHORT).show();
                                     }
@@ -202,6 +202,7 @@ public class SignIn extends AppCompatActivity {
             Intent intent1=new Intent(this,customerDetails.class);
             startActivity(intent1);
         }else {
+            Toast.makeText(this, "welcome seller", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(SignIn.this, ownerDetails.class);
             intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
             startActivity(intent);

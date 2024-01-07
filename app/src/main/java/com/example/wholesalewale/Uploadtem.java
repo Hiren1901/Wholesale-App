@@ -419,9 +419,8 @@ boolean h=false;
                     @SuppressLint("SuspiciousIndentation")
                     @Override
                     public void onClick(View view) {
-
                         arrayList.add(uri);
-                       showimage.add(uri);
+                        showimage.add(uri);
 
                         Toast.makeText(getContext(), imgcount+" Image added", Toast.LENGTH_SHORT).show();
                         imgcount++;
@@ -442,6 +441,10 @@ boolean h=false;
                     @Override
                     public void onClick(View view) {
                         Toast.makeText(getContext(), " Discarded", Toast.LENGTH_SHORT).show();
+                        if(!arrayList.isEmpty())
+                            arrayList.remove(arrayList.size()-1);
+                        if(!showimage.isEmpty())
+                            showimage.remove(showimage.size()-1);
                         cameraView.open();
                     }
                 });

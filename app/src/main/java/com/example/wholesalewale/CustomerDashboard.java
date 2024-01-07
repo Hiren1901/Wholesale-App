@@ -31,26 +31,29 @@ public class CustomerDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 setButtonAttributes(home);
-              //  replaceFragment(new shop(), R.anim.fadein, R.anim.fadeout);
+               replaceFragment(new customerpage(), R.anim.fadein, R.anim.fadeout);
             }
         });
        cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setButtonAttributes(cart);
-                //replaceFragment(new Uploadtem(),R.anim.fadein, R.anim.fadeout);
+                replaceFragment(new CartList(),R.anim.fadein, R.anim.fadeout);
             }
         });
   like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setButtonAttributes(like);
+                replaceFragment(new LikedItemList(), R.anim.fadein, R.anim.fadeout);
+
             }
         });
         list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setButtonAttributes(list);
+                replaceFragment(new orderedList(), R.anim.fadein, R.anim.fadeout);
             }
         });
 
@@ -78,7 +81,6 @@ public class CustomerDashboard extends AppCompatActivity {
     private void setButtonAttributes(ImageButton imageButton){
 
         imageButton.setEnabled(false);
-
         for(int i=0;i<imageButtons.length;i++){
             if (imageButtons[i]!=imageButton){
                 imageButtons[i].setBackground(null);

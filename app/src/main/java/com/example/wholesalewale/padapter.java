@@ -24,6 +24,8 @@ import exportkit.figma.R;
 public class padapter extends RecyclerView.Adapter<padapter.ViewHolder>{
     static Context context;
     static ArrayList<String> hashSet;
+    uploadDetails details;
+    String chk;
 
     private ImagesAdapter .onItemclick click;
     static String name;
@@ -55,6 +57,13 @@ public class padapter extends RecyclerView.Adapter<padapter.ViewHolder>{
         hashSet=k;
 
     }
+    public padapter (Context context, uploadDetails details,String chk){
+        this.context=context;
+        this.details=details;
+        this.chk=chk;
+
+
+    }
 
     @NonNull
     @Override
@@ -71,16 +80,28 @@ public class padapter extends RecyclerView.Adapter<padapter.ViewHolder>{
     @Override
 
     public void onBindViewHolder(@NonNull padapter .ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-            Glide.with(context).clear(holder.PImage);
-        if(!hashSet.isEmpty() &&hashSet.get(position)!=null) {
-           Glide.with(context).load(hashSet.get(position)).into(holder.PImage);
-        }
+        if(chk!=null){
+            if(details.getLinks()!=null)
+            Glide.with(context).load(details.getLinks().get(position)).into(holder.PImage);
 
+        }else {
+            Glide.with(context).clear(holder.PImage);
+            if (!hashSet.isEmpty() && hashSet.get(position) != null) {
+                Glide.with(context).load(hashSet.get(position)).into(holder.PImage);
+            }
+        }
 
     }
 
     @Override
     public int getItemCount() {
+        if(chk!=null){
+            if(details.getLinks()!=null)
+            return details.getLinks().size();
+            else
+                return 0;
+        }
+        else
         return hashSet.size();
     }
 
