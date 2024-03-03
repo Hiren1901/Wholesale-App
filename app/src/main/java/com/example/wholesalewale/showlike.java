@@ -1,11 +1,28 @@
-package com.example.wholesalewale;public class
+package com.example.wholesalewale;
 
-showlike {
+import java.io.Serializable;
 
-    public showlike(com.example.wholesalewale.uploadDetails uploadDetails, String sname) {
+public class
+
+showlike  implements Serializable {
+    String category;
+    String key;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public showlike(com.example.wholesalewale.uploadDetails uploadDetails, String sname, String category, String key) {
         this.uploadDetails = uploadDetails;
         this.sname = sname;
+        this.category=category;
+        this.key=key;
     }
+
     public showlike(com.example.wholesalewale.uploadDetails uploadDetails, String sname,Integer qnt) {
         this.uploadDetails = uploadDetails;
         this.sname = sname;

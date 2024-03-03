@@ -1,7 +1,8 @@
 package com.example.wholesalewale;
 
-import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,16 +17,16 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.wholesalewale.Adapters.shoplistadapter;
+import com.example.wholesalewale.Adapters.categoryAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,9 +43,12 @@ import exportkit.figma.R;
 public class customerpage extends Fragment implements categoryAdapter.onItemclick, shoplistadapter.onclick  {
     View view;
     RecyclerView gridView;
-    Thread t;
+    SharedPreferences.Editor editor;
+    SharedPreferences s;
+    String user;
     ImageButton logout;
     TextView name,Address;
+    String KEY="YY";
     Query q;
     SearchView search;
     uploadDetails uploadDetail;
@@ -60,20 +64,27 @@ public class customerpage extends Fragment implements categoryAdapter.onItemclic
     String category,Cname;
     FirebaseDatabase firebaseDatabase;
     categoryAdapter categoryAdapter;
-    FirebaseAuth.AuthStateListener mAuthStateListener;
-    FirebaseAuth firebaseAuth;
+
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
+    Uri pic;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    firebaseAuth.addAuthStateListener(mAuthStateListener);
-    }
+public customerpage(String user){
+    this.user=user;
+
+}
+public customerpage(){}
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState); getActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+
+
+        super.onCreate(savedInstanceState);
+
+
+        getActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
 
             @Override
             public void handleOnBackPressed() {
@@ -81,10 +92,11 @@ public class customerpage extends Fragment implements categoryAdapter.onItemclic
                                     getActivity().moveTaskToBack(true);
                                     android.os.Process.killProcess(android.os.Process.myPid());
                                     System.exit(1);
-                                    //close();
+
 
             }
         });
+
 
     }
 
@@ -95,7 +107,8 @@ public class customerpage extends Fragment implements categoryAdapter.onItemclic
         gridView=view.findViewById(R.id.grid);
         shoplist=view.findViewById(R.id.shopsList);
         search=view.findViewById(R.id.searchView);
-
+        s=this.requireActivity().getSharedPreferences("Image", Context.MODE_PRIVATE);
+       editor=s.edit();
 
         return view;
     }
@@ -106,6 +119,7 @@ public class customerpage extends Fragment implements categoryAdapter.onItemclic
         items=new ArrayList<>();
         k=new ArrayList<>();
         shopItem=new ArrayList<>();
+
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +130,6 @@ public class customerpage extends Fragment implements categoryAdapter.onItemclic
         cImage=view.findViewById(R.id.image);
         Address=view.findViewById(R.id.A1);
         name=view.findViewById(R.id.Customername);
-        firebaseAuth=FirebaseAuth.getInstance();
         shoplist.setVisibility(View.INVISIBLE);
         items.add(new categoryItems(R.drawable.toys_icon,"Toys"));
         items.add(new categoryItems(R.drawable.bangles_icon,"Bangles"));
@@ -139,52 +152,51 @@ public class customerpage extends Fragment implements categoryAdapter.onItemclic
         categoryAdapter.onclick(customerpage.this);
         gridView.setAdapter(categoryAdapter);
         onClick(0);
+        String imUri=s.getString("uImg","Null");
+        if(!imUri.equals("Null")){
+            Glide.with(this).load(Uri.parse(imUri)).into(cImage);
+        }
 
 
-                mAuthStateListener=new FirebaseAuth.AuthStateListener() {
-                    @Override
-                    public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                        FirebaseUser user=firebaseAuth.getCurrentUser();
-                        if(user!=null){
-                            Query q=databaseReference2;
-                            q.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    for(DataSnapshot snapshot1:snapshot.getChildren()){
-                                        if(snapshot1.getKey().contains(user.getUid())){
-                                            customerclass Customerclass=snapshot1.getValue(customerclass.class);
-                                            name.setText(Customerclass.getName());
-                                            Cname=Customerclass.getName();
 
-                                            Address.setText(Customerclass.getAddress());
+        if(user!=null){
+            Query q=databaseReference2;
+            q.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for(DataSnapshot snapshot1:snapshot.getChildren()){
+
+                        if(snapshot1.getKey().contains(user)){
+                            customerclass Customerclass=snapshot1.getValue(customerclass.class);
+                            name.setText(Customerclass.getName());
+                            Cname=Customerclass.getName();
+                            Address.setText(Customerclass.getAddress());
 
                                             Task<Uri> t= storageReference.child(Customerclass.getName()).getDownloadUrl();
                                             t.addOnCompleteListener(new OnCompleteListener<Uri>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Uri> task) {
-                                                    Uri pic=t.getResult();
-                                                    Glide.with(getActivity()).load(pic).into(cImage);
+                                                    pic=t.getResult();
+                                                    if(getActivity()!=null){
+                                                        editor.putString("uImg",pic.toString());
+                                                        Glide.with(customerpage.this).load(pic).into(cImage);
+                                                        editor.apply();
+                                                    }
                                                 }
                                             });
 
 
-
-
-
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+                            break;
                         }
                     }
-                };
+                }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
 
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -192,6 +204,7 @@ public class customerpage extends Fragment implements categoryAdapter.onItemclic
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getContext(), MainActivity.class);
+                editor.clear();
                 startActivity(intent);
 
             }

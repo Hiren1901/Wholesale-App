@@ -1,21 +1,17 @@
-package com.example.wholesalewale;
+package com.example.wholesalewale.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.wholesalewale.uploadDetails;
 
 import java.util.ArrayList;
 
@@ -27,7 +23,7 @@ public class padapter extends RecyclerView.Adapter<padapter.ViewHolder>{
     uploadDetails details;
     String chk;
 
-    private ImagesAdapter .onItemclick click;
+    private ImagesAdapter.onItemclick click;
     static String name;
     public padapter (Context context){
 
@@ -67,19 +63,19 @@ public class padapter extends RecyclerView.Adapter<padapter.ViewHolder>{
 
     @NonNull
     @Override
-    public padapter .ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.top, parent, false);
 
 
-        return new padapter.ViewHolder(view);
+        return new ViewHolder(view);
 
     }
 
 
     @Override
 
-    public void onBindViewHolder(@NonNull padapter .ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         if(chk!=null){
             if(details.getLinks()!=null)
             Glide.with(context).load(details.getLinks().get(position)).into(holder.PImage);

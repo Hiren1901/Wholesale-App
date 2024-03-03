@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:cardCornerRadius="50dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/Name"
+                android:layout_width="47dp"
+                android:layout_height="21dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:text="Truck"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/Sname"
+                android:layout_width="84dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="Toys Centre"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="@+id/Name"
+                app:layout_constraintStart_toEndOf="@+id/Name"
+                app:layout_constraintTop_toTopOf="@+id/Name"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/Qnt"
+                android:layout_width="26dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="32dp"
+                android:text="10"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="@+id/Sname"
+                app:layout_constraintStart_toEndOf="@+id/Sname"
+                app:layout_constraintTop_toTopOf="@+id/Sname"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/Pri"
+                android:layout_width="32dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="false"
+                android:text="120"
+                android:textColor="#000000"
+                app:layout_constraintEnd_toStartOf="@+id/TT"
+                app:layout_constraintStart_toEndOf="@+id/Qnt"
+                app:layout_constraintTop_toTopOf="@+id/Qnt" />
+
+            <TextView
+                android:id="@+id/TT"
+                android:layout_width="50dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="5dp"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="1200"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toBottomOf="@+id/Pri"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/Pri"
+                app:layout_constraintTop_toTopOf="@+id/Pri"
+                app:layout_constraintVertical_bias="0.0" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

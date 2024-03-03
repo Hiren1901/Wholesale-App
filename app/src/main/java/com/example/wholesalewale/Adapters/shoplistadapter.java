@@ -1,27 +1,24 @@
-package com.example.wholesalewale;
+package com.example.wholesalewale.Adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.utils.widget.ImageFilterButton;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.wholesalewale.shopdetails;
+import com.example.wholesalewale.userviewShops;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import exportkit.figma.R;
 
@@ -34,7 +31,7 @@ public class shoplistadapter extends RecyclerView.Adapter<shoplistadapter.ViewHo
 
   ArrayList<userviewShops> arrayList;
 
-    shoplistadapter(Context context, ArrayList<userviewShops> arrayList) {
+    public shoplistadapter(Context context, ArrayList<userviewShops> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
 
@@ -72,10 +69,10 @@ public class shoplistadapter extends RecyclerView.Adapter<shoplistadapter.ViewHo
 
     @NonNull
     @Override
-    public shoplistadapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.shopdisplay, parent, false);
-        return new shoplistadapter.ViewHolder(view);
+        return new ViewHolder(view);
 
     }
 
@@ -90,7 +87,7 @@ public class shoplistadapter extends RecyclerView.Adapter<shoplistadapter.ViewHo
         }
     holder.shopname.setText(arrayList.get(position).getShopname());
         holder.price.setText(String.valueOf(arrayList.get(position).getPrice()));
-        holder.itemname.setText(String.valueOf(arrayList.get(position).productname));
+        holder.itemname.setText(String.valueOf(arrayList.get(position).getProductname()));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

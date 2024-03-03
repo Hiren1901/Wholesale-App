@@ -14,7 +14,7 @@ public class uploadDetails {
         return quantity;
     }
 
-    public double getPrice() {
+    public long getPrice() {
         return price;
     }
 
@@ -32,7 +32,7 @@ public class uploadDetails {
 public uploadDetails(){
 
 }
-    public uploadDetails(String productname, int quantity, double price, int color, String material, String about, ArrayList<String> links) {
+    public uploadDetails(String productname, int quantity, long price, int color, String material, String about, ArrayList<String> links) {
         this.productname = productname;
         this.quantity = quantity;
         this.price = price;
@@ -51,7 +51,7 @@ public uploadDetails(){
     }
 
     ArrayList<String> links;
-    double price=0.0;
+  long price;
     int color;
     String material;
     String about;

@@ -13,6 +13,9 @@
         android:allowBackup="true"
         android:theme="@style/Theme.WholeSaleWale">
         <activity
+            android:name="com.example.wholesalewale.itemPurchasing_Bill"
+            android:exported="false" />
+        <activity
             android:name="com.example.wholesalewale.completeproductview"
             android:exported="false" />
         <activity

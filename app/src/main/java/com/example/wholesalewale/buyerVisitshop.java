@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.example.wholesalewale.Adapters.*;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -170,7 +170,7 @@ public class buyerVisitshop extends AppCompatActivity implements  buyerAdapter.o
 
                 }
 
-                Query q=firebaseDatabase.getReference().child("Users/"+user.getUid()+"("+cname+")");
+                Query q=firebaseDatabase.getReference().child("Users/"+user.getUid());
                 q.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -217,7 +217,7 @@ public class buyerVisitshop extends AppCompatActivity implements  buyerAdapter.o
     @Override
     public void click(int position,String addre) {
         String s="("+cname.trim()+")";
-        db=firebaseDatabase.getReference().child("Users/"+user.getUid()+s);
+        db=firebaseDatabase.getReference().child("Users/"+user.getUid());
         likeditem l=new likeditem(shopname,k.get(position).getProductname(),category,key);
         if(addre.equals("add")){
         Toast.makeText(this, "item added in liked section ", Toast.LENGTH_SHORT).show();
@@ -237,7 +237,7 @@ public class buyerVisitshop extends AppCompatActivity implements  buyerAdapter.o
 
     @Override
     public void clickonItem(int position) {
-        Toast.makeText(this, "clicked", Toast.LENGTH_SHORT).show();
+
         Gson g=new Gson();
 Intent intent=new Intent(buyerVisitshop.this,completeproductview.class);
 String json=g.toJson(k.get(position));
@@ -248,8 +248,7 @@ startActivity(intent);
 
     @Override
     public void clickCart(int position,String name) {
-        String s="("+cname.trim()+")";
-        db=firebaseDatabase.getReference().child("Users/"+user.getUid()+s);
+        db=firebaseDatabase.getReference().child("Users/"+user.getUid());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter Quantity");
 

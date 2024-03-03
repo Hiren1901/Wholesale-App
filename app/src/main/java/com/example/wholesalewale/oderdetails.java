@@ -1,8 +1,9 @@
 package com.example.wholesalewale;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class oderdetails {
+public class oderdetails implements Serializable {
     ArrayList<String> links;
     ArrayList<String> customerDetails;
 
@@ -26,7 +27,7 @@ public class oderdetails {
         return customerDetails;
     }
 
-    public double getPrice() {
+    public Long getPrice() {
         return price;
     }
 
@@ -34,23 +35,23 @@ public class oderdetails {
         return qnt;
     }
 
-    double price;
+   Long price;
     Integer qnt;
 
-    public oderdetails( String itemNAme,Integer qnt,ArrayList<String> links, double price, ArrayList<String> customerDetails) {
+    public oderdetails( String itemNAme,Integer qnt,ArrayList<String> links,Long price) {
         this.links = links;
-        this.customerDetails = customerDetails;
         this.price = price;
         this.qnt = qnt;
         this.itemName=itemNAme;
     }
-    public oderdetails( String itemNAme,Integer qnt,ArrayList<String> links, double price,String shopName) {
+    public oderdetails( String itemNAme,Integer qnt,ArrayList<String> links, Long price,String shopName) {
         this.links = links;
         this.price = price;
         this.qnt = qnt;
         this.itemName=itemNAme;
         this.shopName=shopName;
     }
+    public oderdetails(){}
 
 
 }

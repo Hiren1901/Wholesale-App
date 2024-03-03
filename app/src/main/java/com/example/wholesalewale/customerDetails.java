@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.drjacky.imagepicker.ImagePicker;
@@ -120,12 +121,19 @@ public class customerDetails extends AppCompatActivity {
                             return;
                         }
                         customerclass Customerclass=new customerclass(Cname.getText().toString(),caddress.getText().toString(), cno.getText().toString());
-                            databaseReference.child(user.getUid()+"("+Cname.getText().toString().trim()+")").setValue(Customerclass);
+                            databaseReference.child(user.getUid()).setValue(Customerclass);
+                          if(selectedImage==null)
+                          {
+                              Toast.makeText(customerDetails.this, "Please select Image", Toast.LENGTH_SHORT).show();
+                              return;
+                          }
+                              else
                             storageReference.child(Cname.getText().toString()).putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                             Intent intent=new Intent(customerDetails.this,CustomerDashboard.class);
+                            intent.putExtra("User",user.getUid());
                             startActivity(intent);
                                 }
                             });

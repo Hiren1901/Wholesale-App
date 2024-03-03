@@ -29,7 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-
+import com.example.wholesalewale.Adapters.*;
 import java.util.ArrayList;
 
 import exportkit.figma.R;

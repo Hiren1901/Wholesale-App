@@ -72,9 +72,10 @@ if(!chk) {
             if (user != null) {
                 if (user.getDisplayName() != null && user.getDisplayName().contains("user ")) {
                     Intent intent = new Intent(Splash_screen.this, CustomerDashboard.class);
+                    intent.putExtra("User",user.getUid());
                     startActivity(intent);
 
-                } else if (user.getDisplayName() != null && user.getDisplayName().contains("owner ")) {
+                }  else {
                     Intent intent = new Intent(Splash_screen.this, Dashboard.class);
                     startActivity(intent);
                 }

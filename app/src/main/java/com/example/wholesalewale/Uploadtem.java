@@ -1,7 +1,7 @@
 package com.example.wholesalewale;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-
+import com.example.wholesalewale.Adapters.*;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -500,7 +500,7 @@ boolean h=false;
                                                 if (snapshot1.getKey().contains(user.getUid())) {
 
                                                     uploaded = true;
-                                                    uploadDetail = new uploadDetails(pName, Integer.parseInt(q), Double.parseDouble(p), Integer.parseInt(c), mat, abt, null);
+                                                    uploadDetail = new uploadDetails(pName, Integer.parseInt(q), Long.parseLong(p), Integer.parseInt(c), mat, abt, null);
                                                     databaseReference.child(snap.getKey()).child(snapshot1.getKey()).child("Products").child(pName).setValue(uploadDetail);
 
                                                     int i = 1;

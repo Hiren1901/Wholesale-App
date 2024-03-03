@@ -1,7 +1,8 @@
 package com.example.wholesalewale;
 
+import android.content.Intent;
 import android.os.Bundle;
-
+import com.example.wholesalewale.Adapters.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -32,7 +35,7 @@ import exportkit.figma.R;
  * Use the {@link orderedList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class orderedList extends Fragment {
+public class orderedList extends Fragment implements orderAdapter.Click {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,11 +47,13 @@ public class orderedList extends Fragment {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference reference;
     RecyclerView recyclerView;
-    ArrayList<Double> Amounts;
+    ArrayList<Long> Amounts;
     ArrayList<String> date;
     ArrayList<String> time;
-    //ArrayList<orderedList> lists;
+    ArrayList<oderdetails> oderdetails;
+    ArrayList<ArrayList<oderdetails>> Details;   //ArrayList<orderedList> lists;
     FirebaseUser user;
+    boolean chk=false;
 
     public orderedList() {
         // Required empty public constructor
@@ -81,6 +86,8 @@ public class orderedList extends Fragment {
         Amounts=new ArrayList<>();
         date=new ArrayList<>();
         time=new ArrayList<>();
+        Details=new ArrayList<>();
+        oderdetails =new ArrayList<>();
         reference=firebaseDatabase.getReference().child("Users");
     }
 
@@ -125,35 +132,56 @@ public class orderedList extends Fragment {
         };
     }
     void get(DataSnapshot snapshot,FirebaseUser user){
-        for (DataSnapshot snapshot1 : snapshot.getChildren()) {
-            if (snapshot1.getKey().contains(user.getUid())) {
-                for (DataSnapshot dataSnapshot : snapshot1.getChildren()) {
-                    if (dataSnapshot.getKey().contains("Orders")) {
-                        for(DataSnapshot snapshot2:dataSnapshot.getChildren()){
-                            for(DataSnapshot k:snapshot2.getChildren()){
-                                if(k.getKey().contains("Amount"))
-                                    Amounts.add( k.getValue(Double.class));
-                                if(k.getKey().contains("Date"))
-                                    date.add( k.getValue(String.class));
-                                if(k.getKey().contains("Time"))
-                                    time.add( k.getValue(String.class));
+        if (Amounts.isEmpty()) {
 
+            for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                if (snapshot1.getKey().contains(user.getUid())) {
+                    for (DataSnapshot dataSnapshot : snapshot1.getChildren()) {
+                        if (dataSnapshot.getKey().contains("Orders")) {
+                            for (DataSnapshot snapshot2 : dataSnapshot.getChildren()) {
+                                for (DataSnapshot k : snapshot2.getChildren()) {
+                                    if (k.getKey().contains("Amount"))
+                                        Amounts.add(k.getValue(Long.class));
+                                    if (k.getKey().contains("Date"))
+                                        date.add(k.getValue(String.class));
+                                    if (k.getKey().contains("Time"))
+                                        time.add(k.getValue(String.class));
+                                    if (k.getKey().contains("Details")){
+                                        for(DataSnapshot d:k.getChildren()){
+                                      oderdetails oderdetail=  d.getValue(oderdetails.class);
+                                            oderdetails.add(oderdetail);
+                                        }
+
+                                    }
+
+                                }
+                                Details.add(new ArrayList<>(oderdetails));
+                                oderdetails=new ArrayList<>();
                             }
+
                         }
-
                     }
+
+
+                    break;
                 }
-
-
-                break;
             }
+            orderAdapter adapter = new orderAdapter(getActivity(), Amounts, date, time);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
+            linearLayoutManager.setStackFromEnd(true);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            adapter.klick(orderedList.this);
+            recyclerView.setAdapter(adapter);
         }
-        orderAdapter adapter=new orderAdapter(getActivity(),Amounts,date,time);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,true);
-        linearLayoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
 
-        recyclerView.setAdapter(adapter);
+    }
 
+    @Override
+    public void onClickItem(int position) {
+Bundle args=new Bundle();
+args.putSerializable("list",(Serializable) Details.get(position));
+        Intent intent=new Intent(getActivity(),itemPurchasing_Bill.class);
+        intent.putExtra("de",args);
+        startActivity(intent);
     }
 }

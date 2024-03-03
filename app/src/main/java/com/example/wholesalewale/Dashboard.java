@@ -29,6 +29,7 @@ public class Dashboard extends AppCompatActivity implements shop.onItemclick {
         ImageButton shop,add_item,check_orders,edit;
         ImageButton[] imageButtons;
         String category,sname;
+        Shoporders instance;
 
 
     @Override
@@ -42,6 +43,7 @@ public class Dashboard extends AppCompatActivity implements shop.onItemclick {
         edit=findViewById(R.id.editItem);
         imageButtons=new ImageButton[]{shop,add_item,check_orders,edit};
         setButtonAttributes(shop);
+        instance=Shoporders.getInstance();
 
         replaceFragment(new shop(Dashboard.this),R.anim.fadein, R.anim.fadeout);
         shop.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +64,7 @@ public class Dashboard extends AppCompatActivity implements shop.onItemclick {
             @Override
             public void onClick(View view) {
                 setButtonAttributes(check_orders);
+                replaceFragment(instance,R.anim.fadein, R.anim.fadeout);
             }
         });
         edit.setOnClickListener(new View.OnClickListener() {

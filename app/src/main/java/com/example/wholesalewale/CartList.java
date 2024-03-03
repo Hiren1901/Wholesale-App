@@ -1,6 +1,9 @@
 package com.example.wholesalewale;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
@@ -21,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.wholesalewale.Adapters.buyerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -45,6 +50,7 @@ public class CartList extends Fragment implements buyerAdapter.onclick {
 
     View view;
     TextView heading;
+    CustomerDashboard c;
     ArrayList<String> qnt;
     String Cname,m_Text;
     String completeUserId;
@@ -97,10 +103,11 @@ public class CartList extends Fragment implements buyerAdapter.onclick {
         recyclerView=view.findViewById(R.id.re);
         heading=view.findViewById(R.id.textView36);
         heading.setText("Cart");
-        buy=view.findViewById(R.id.button7);
+
 
         return view;
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -117,6 +124,8 @@ public class CartList extends Fragment implements buyerAdapter.onclick {
         iterator=new Iterator[2];
         reference=firebaseDatabase.getReference().child("Users");
         reference1=firebaseDatabase.getReference().child("Shops");
+        c=(CustomerDashboard) getActivity();
+
 
         authStateListener=new FirebaseAuth.AuthStateListener() {
             @Override
@@ -197,13 +206,18 @@ public class CartList extends Fragment implements buyerAdapter.onclick {
 
     @Override
     public void clickonItem(int position) {
-
+        Toast.makeText(getActivity(), "innn", Toast.LENGTH_SHORT).show();
+        Gson g=new Gson();
+        Intent intent=new Intent(getContext(),completeproductview.class);
+        String json=g.toJson(liked.get(position));
+        intent.putExtra("list",json);
+        startActivity(intent);
     }
+
 
     @Override
     public void clickCart(int position,String name) {
-        String s="("+Cname.trim()+")";
-        reference=firebaseDatabase.getReference().child("Users/"+id+s);
+        reference=firebaseDatabase.getReference().child("Users/"+id);
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Enter Quantity");
 
@@ -222,7 +236,7 @@ public class CartList extends Fragment implements buyerAdapter.onclick {
 
                 if(Integer.parseInt(m_Text)!=0){
                     reference.child("cart").child(name).child("qnt").setValue(m_Text);
-          Toast.makeText(getContext(), m_Text+" "+l.getItemname()+" added to cart", Toast.LENGTH_SHORT).show();}
+                    Toast.makeText(getContext(), m_Text+" "+l.getItemname()+" added to cart", Toast.LENGTH_SHORT).show();}
                 else{
                     reference.child("cart").child(name).removeValue();
                     Toast.makeText(getContext(), l.getItemname()+" has removed from the cart", Toast.LENGTH_SHORT).show();
@@ -258,12 +272,17 @@ public class CartList extends Fragment implements buyerAdapter.onclick {
                      liked.add(new showlike(uploadDetails,sname.get(count-1) , Integer.parseInt(qnt.get(count-1))));
 
                     if(count==q.size()){
-                        buyerAdapter b = new buyerAdapter(getContext(), liked, 'L', l.getShopname());
+                        buyerAdapter b = new buyerAdapter(getContext(), liked, 'C', l.getShopname());
                         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false));
                         recyclerView.addItemDecoration(new SpacesItemDecoration(1));
                         b.initclick(CartList.this);
                         recyclerView.setAdapter(b);
-                        buy.setOnClickListener(new View.OnClickListener() {
+                        if(!liked.isEmpty()){
+                            c.Buy.setVisibility(View.VISIBLE);
+
+                        }
+
+                        c.Buy.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -286,25 +305,27 @@ public class CartList extends Fragment implements buyerAdapter.onclick {
 
 
     }
+    @SuppressLint("SuspiciousIndentation")
     @RequiresApi(api = Build.VERSION_CODES.O)
     void placeorder(@NonNull ArrayList<showlike> liked, ArrayList<String> keys, ArrayList<String> ctg){
         //get customers details also
         ArrayList<oderdetails> oderdetails=new ArrayList<>();
         double orderAmount=0;
         for(int i=0;i<liked.size();i++){
-            oderdetails details=new oderdetails(liked.get(i).getUploadDetails().getProductname(), liked.get(i).getQnt(),liked.get(i).getUploadDetails().getLinks(), liked.get(i).getUploadDetails().getPrice(),cdetails);
+            oderdetails details=new oderdetails(liked.get(i).getUploadDetails().getProductname(), liked.get(i).getQnt(),liked.get(i).getUploadDetails().getLinks(), liked.get(i).getUploadDetails().getPrice());
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMdd HHmmss");
             LocalDateTime now = LocalDateTime.now();
             orderAmount=orderAmount+liked.get(i).getQnt()*liked.get(i).getUploadDetails().getPrice();
             oderdetails details2=new oderdetails(liked.get(i).getUploadDetails().getProductname(), liked.get(i).getQnt(),liked.get(i).getUploadDetails().getLinks(), liked.get(i).getUploadDetails().getPrice(),liked.get(i).getSname());
             oderdetails.add(details2);
             reference1.child(ctg.get(i)).child(keys.get(i)).child("orders").child(cdetails.get(0)).child("order_Id "+now.hashCode()).setValue(details);
+            if(i==liked.size()-1)
+            reference1.child(ctg.get(i)).child(keys.get(i)).child("orders").child(cdetails.get(0)).child("Cdetails").setValue(cdetails);
 
         }
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
         DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyy/MM//dd");
         LocalDateTime now = LocalDateTime.now();
-        long code=now.hashCode();
         DatabaseReference newref=reference.child(completeUserId).child("Orders").push();
         newref.child("Amount").setValue(orderAmount);
         newref.child("Date").setValue(now.format(dtf2).toString());

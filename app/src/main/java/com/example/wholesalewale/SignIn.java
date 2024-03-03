@@ -133,8 +133,10 @@ public class SignIn extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
 
                                     if (task.isSuccessful()) {
+                                        Intent i=new Intent(SignIn.this, CustomerDashboard.class);
+                                        i.putExtra("User",firebaseAuth.getCurrentUser().getUid());
 
-                                        startActivity(new Intent(SignIn.this, CustomerDashboard.class));
+                                        startActivity(i);
                                         Toast.makeText(SignIn.this, "Successfully Signed In to Customer's page", Toast.LENGTH_SHORT).show();
                                         finish();
 
